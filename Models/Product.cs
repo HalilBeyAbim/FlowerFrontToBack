@@ -8,6 +8,7 @@
         public int CategoryId { get; set; }
         public string? ImageURL { get; set; }
         public string? Descriptions { get; set; }
+        public int Discount { get; set; }
         public Category? Category { get; set; }
 
     }

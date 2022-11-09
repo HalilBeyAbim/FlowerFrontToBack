@@ -1,4 +1,5 @@
 ﻿using FrontToBackFlower.DAL;
+using FrontToBackFlower.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,8 +15,12 @@ namespace FrontToBackFlower.Controllers
         }
         public IActionResult Index()
         {
-            var products = _dbContext.Products.Include(x => x.Category).ToList();
-            return View(products);
+            var products = _dbContext.Products.Include(c => c.Category).ToList();
+            var homeViewModel = new HomeViewModel
+            {
+                Products = products,
+            };
+            return View(homeViewModel);
         }
 
         public IActionResult Details(int? id)

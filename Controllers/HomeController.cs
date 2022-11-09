@@ -1,6 +1,7 @@
 ﻿using FrontToBackFlower.DAL;
 using FrontToBackFlower.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FrontToBackFlower.Controllers
 {
@@ -14,16 +15,17 @@ namespace FrontToBackFlower.Controllers
             }
 
             public IActionResult Index()
-            {
+        {
             var sliderImage = _dbContext.SliderImages.ToList();
-                var sliders = _dbContext.Sliders.SingleOrDefault();
-                var category = _dbContext.Categories.ToList();
-                var product = _dbContext.Products.ToList();
+
+            var sliders = _dbContext.Sliders.SingleOrDefault();
+            var category = _dbContext.Categories.ToList();
+            var product = _dbContext.Products.Include(c => c.Category).ToList();
 
                 var homeViewModel = new HomeViewModel
                 {
                     Sliders = sliders,
-                    SliderImage = sliderImage,
+                    SliderImages = sliderImage,
                     Categories = category,
                     Products = product,
                 };
